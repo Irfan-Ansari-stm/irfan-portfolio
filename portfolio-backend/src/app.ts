@@ -19,12 +19,17 @@ import projectsRoutes from './modules/projects/projects.routes';
 import blogRoutes from './modules/blog/blog.routes';
 import contactsRoutes from './modules/contacts/contacts.routes';
 import analyticsRoutes from './modules/analytics/analytics.routes';
+import mediaRoutes from './modules/media/media.routes';
 
 export function createApp(): Application {
   const app = express();
 
   // ── Security ────────────────────────────────────────────────
-  app.use(helmet());
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+    })
+  );
   app.use(
     cors({
       origin: (origin, callback) => {
@@ -52,8 +57,16 @@ export function createApp(): Application {
   // ── Rate limiting ───────────────────────────────────────────
   app.use('/api', globalRateLimiter);
 
-  // ── Serve /tmp/uploads for local dev (not needed in prod) ───
-  app.use('/uploads', express.static(path.join('/tmp', 'uploads')));
+  // ── Serve uploads statically ────────────────────────────────
+  app.use(
+    '/uploads',
+    (_req, res, next) => {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      next();
+    },
+    express.static(path.join(process.cwd(), 'uploads'))
+  );
 
   // ── Health check ────────────────────────────────────────────
   app.get('/health', (_req, res) => {
@@ -76,6 +89,7 @@ export function createApp(): Application {
   app.use('/api/blog', blogRoutes);
   app.use('/api/contacts', contactsRoutes);
   app.use('/api/analytics', analyticsRoutes);
+  app.use('/api/media', mediaRoutes);
 
   // ── 404 + Global error handler ───────────────────────────────
   app.use(notFound);

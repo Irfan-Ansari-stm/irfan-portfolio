@@ -18,7 +18,12 @@ async function main() {
   const arg = process.argv[2];
 
   try {
-    if (arg === 'seed') {
+    if (arg === 'media') {
+      await runSQL(
+        path.join(__dirname, 'migrations', '002_media.sql'),
+        'Schema migration 002 (Media Library)'
+      );
+    } else if (arg === 'seed') {
       await runSQL(
         path.join(__dirname, 'seeds', 'seed.sql'),
         'Seed data'
@@ -28,6 +33,11 @@ async function main() {
         path.join(__dirname, 'migrations', '001_schema.sql'),
         'Schema migration 001'
       );
+
+      const mediaMigration = path.join(__dirname, 'migrations', '002_media.sql');
+      if (fs.existsSync(mediaMigration)) {
+        await runSQL(mediaMigration, 'Schema migration 002 (Media)');
+      }
 
       if (arg === 'seed-after') {
         await runSQL(

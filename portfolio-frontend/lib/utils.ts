@@ -18,6 +18,16 @@ export function truncate(str: string, n: number) {
   return str.length > n ? str.slice(0, n) + "…" : str;
 }
 
+export function formatBytes(bytes: number | string, decimals = 1): string {
+  const num = typeof bytes === "string" ? parseInt(bytes, 10) : bytes;
+  if (!num || isNaN(num) || num === 0) return "0 B";
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(num) / Math.log(k));
+  return `${parseFloat((num / Math.pow(k, i)).toFixed(dm))} ${sizes[i] || "B"}`;
+}
+
 export function estimateReadingTime(content: string): number {
   return Math.max(1, Math.ceil(content.trim().split(/\s+/).length / 200));
 }

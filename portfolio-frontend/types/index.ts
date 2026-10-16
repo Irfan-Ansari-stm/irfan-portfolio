@@ -6,6 +6,8 @@ export interface SiteSettings {
   owner_location?: string;
   owner_avatar_url?: string;
   owner_resume_url?: string;
+  logo_url?: string;
+  logo_text?: string;
   hero_taglines: string[];
   hero_bio_short?: string;
   about_bio?: string;
@@ -157,3 +159,16 @@ export interface ApiResponse<T> {
   data: T;
   message?: string;
 }
+
+export interface MediaItem {
+  id: string;
+  filename: string;
+  original_name: string;
+  mime_type: string;
+  file_type: "image" | "video" | "document" | "other";
+  size_bytes: number | string;
+  url: string;
+  public_id?: string | null;
+  created_at: string;
+}
+

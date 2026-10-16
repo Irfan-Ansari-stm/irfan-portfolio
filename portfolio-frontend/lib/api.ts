@@ -101,6 +101,7 @@ export const adminApi = {
 
   // Projects
   getAllProjects: (params?: any) => api.get("/projects", { params }),
+  getProjects: (params?: any) => api.get("/projects", { params }),
   createProject: (data: any) => api.post("/projects", data),
   updateProject: (id: string, data: any) => api.put(`/projects/${id}`, data),
   deleteProject: (id: string) => api.delete(`/projects/${id}`),
@@ -109,6 +110,7 @@ export const adminApi = {
 
   // Blog
   getAllPosts: (params?: any) => api.get("/blog/admin/all", { params }),
+  getPosts: (params?: any) => api.get("/blog/admin/all", { params }),
   createPost: (data: any) => api.post("/blog", data),
   updatePost: (id: string, data: any) => api.put(`/blog/${id}`, data),
   deletePost: (id: string) => api.delete(`/blog/${id}`),
@@ -126,6 +128,15 @@ export const adminApi = {
   getTimeline: (days?: number) => api.get(`/analytics/timeline?days=${days || 30}`),
   getTopPages: () => api.get("/analytics/top-pages"),
   getTopProjects: () => api.get("/analytics/top-projects"),
+
+  // Media Library
+  getMedia: (params?: { search?: string; type?: string; limit?: number; offset?: number }) =>
+    api.get("/media", { params }),
+  uploadMedia: (formData: FormData) =>
+    api.post("/media/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }),
+  deleteMedia: (id: string) => api.delete(`/media/${id}`),
 };
 
 export interface ContactFormData {

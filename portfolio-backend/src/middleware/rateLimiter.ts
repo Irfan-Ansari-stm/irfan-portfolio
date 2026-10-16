@@ -3,9 +3,10 @@ import { env } from '../config/env';
 
 export const globalRateLimiter = rateLimit({
   windowMs: env.RATE_LIMIT_WINDOW_MS,
-  max: env.RATE_LIMIT_MAX,
+  max: env.NODE_ENV === 'development' ? 50000 : env.RATE_LIMIT_MAX,
   standardHeaders: true,
   legacyHeaders: false,
+  skip: () => env.NODE_ENV === 'development',
   message: {
     success: false,
     message: 'Too many requests, please try again later.',

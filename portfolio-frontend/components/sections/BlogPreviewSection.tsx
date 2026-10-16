@@ -13,7 +13,7 @@ function PostCard({ post }: { post: BlogPost }) {
       className="card card-hover group block overflow-hidden"
       onClick={() => publicApi.trackEvent("blog_view", `/blog/${post.slug}`, post.id)}>
       {post.cover_image_url && (
-        <div className="h-44 overflow-hidden">
+        <div className="h-44 overflow-hidden bg-slate-100 dark:bg-dark-700">
           <img src={post.cover_image_url} alt={post.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         </div>
@@ -28,18 +28,18 @@ function PostCard({ post }: { post: BlogPost }) {
             </span>
           ))}
         </div>
-        <h3 className="text-white font-bold text-base mb-2 group-hover:text-brand-400 transition-colors leading-snug">
+        <h3 className="text-slate-900 dark:text-white font-bold text-base mb-2 group-hover:text-emerald-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
           {post.title}
         </h3>
-        <p className="text-slate-400 text-sm leading-relaxed mb-4">{truncate(post.excerpt, 120)}</p>
-        <div className="flex items-center justify-between text-slate-500 text-xs">
+        <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">{truncate(post.excerpt, 120)}</p>
+        <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs">
           <div className="flex items-center gap-3">
             {post.published_at && (
               <span className="flex items-center gap-1"><Calendar size={11} />{formatDate(post.published_at)}</span>
             )}
             <span className="flex items-center gap-1"><Clock size={11} />{post.reading_time_mins} min read</span>
           </div>
-          <ArrowRight size={14} className="group-hover:text-brand-400 group-hover:translate-x-1 transition-all" />
+          <ArrowRight size={14} className="group-hover:text-emerald-600 dark:group-hover:text-brand-400 group-hover:translate-x-1 transition-all" />
         </div>
       </div>
     </Link>
@@ -63,20 +63,21 @@ export default function BlogPreviewSection() {
   return (
     <section id="blog" className="py-24 relative" ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className={`flex items-end justify-between mb-12 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div>
-            <p className="text-brand-400 font-mono text-sm mb-2">// articles</p>
+            <p className="text-emerald-500 dark:text-brand-400 font-mono text-sm mb-2">// articles</p>
             <h2 className="section-title">Latest Posts</h2>
-            <div className="w-12 h-1 bg-brand-500 rounded-full" />
+            <div className="w-12 h-1 bg-brand-500 rounded-full mb-4" />
+            <p className="section-subtitle">Thoughts, tutorials, and insights on modern web development.</p>
           </div>
-          <Link href="/blog" className="btn-outline text-sm px-4 py-2 group">
+          <Link href="/blog" className="btn-outline text-sm px-4 py-2 group self-start sm:self-auto">
             All Posts <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 
         {loading ? (
           <div className="grid md:grid-cols-3 gap-6">
-            {[1,2,3].map((i) => <div key={i} className="h-72 rounded-xl bg-white/[0.02] animate-pulse" />)}
+            {[1,2,3].map((i) => <div key={i} className="h-72 rounded-xl bg-slate-100 dark:bg-white/[0.02] animate-pulse" />)}
           </div>
         ) : (
           <div className="grid md:grid-cols-3 gap-6">

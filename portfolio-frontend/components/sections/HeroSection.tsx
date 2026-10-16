@@ -46,7 +46,7 @@ function Typewriter({ words }: { words: string[] }) {
   }, [words, wordIdx, charIdx, deleting]);
 
   return (
-    <span className="text-brand-400">
+    <span className="text-emerald-600 dark:text-emerald-400">
       {display}
       <span className="typewriter-cursor" />
     </span>
@@ -70,42 +70,35 @@ export default function HeroSection() {
   const taglines = settings?.hero_taglines || ["Full Stack Developer", "React Specialist", "Node.js Expert"];
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20">
-      {/* Background */}
-      <div className="absolute inset-0 grid-overlay opacity-60" />
-      <div className="absolute inset-0 bg-hero-gradient" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/5 rounded-full blur-[100px] pointer-events-none" />
+    <section className="relative min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-12">
+      {/* Background Subtle Ambience */}
+      <div className="absolute inset-0 grid-overlay opacity-50" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Floating code decorations */}
-      <div className="absolute top-32 right-12 hidden xl:block opacity-20 font-mono text-xs text-brand-400 rotate-6 select-none">
-        {`const dev = {\n  name: "Irfan",\n  skills: ["React","Node"],\n  available: true\n}`}
-      </div>
-      <div className="absolute bottom-40 left-12 hidden xl:block opacity-20 font-mono text-xs text-brand-400 -rotate-3 select-none">
-        {`git commit -m "building dreams"`}
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Badge */}
+      <div className="relative z-10 max-w-3xl mx-auto text-center flex flex-col items-center">
+        {/* Status Badge */}
         <div
-          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-brand-500/30 text-brand-400 text-xs font-medium mb-8 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-700 dark:text-emerald-400 text-xs font-medium tracking-wide mb-6 shadow-sm transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
           style={{ transitionDelay: "0ms" }}
         >
-          <span className="w-2 h-2 rounded-full bg-brand-400 animate-pulse" />
-          Available for work
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span>Available for work & collaboration</span>
         </div>
 
         {/* Name */}
         <h1
-          className={`text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-4 leading-tight transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight leading-[1.1] transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ transitionDelay: "100ms" }}
         >
           Hi, I&apos;m{" "}
-          <span className="gradient-text">{settings?.owner_name?.split(" ")[0] || "Irfan"}</span>
+          <span className="text-emerald-600 dark:text-emerald-400">
+            {settings?.owner_name?.split(" ")[0] || "Irfan"}
+          </span>
         </h1>
 
         {/* Typewriter */}
         <div
-          className={`text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 h-12 flex items-center justify-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`text-xl sm:text-2xl md:text-3xl font-semibold text-slate-700 dark:text-slate-300 mb-4 h-9 flex items-center justify-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ transitionDelay: "200ms" }}
         >
           <Typewriter words={taglines} />
@@ -113,7 +106,7 @@ export default function HeroSection() {
 
         {/* Bio */}
         <p
-          className={`text-slate-400 text-lg max-w-2xl mx-auto mb-10 leading-relaxed transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`text-slate-600 dark:text-slate-400 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed font-normal transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ transitionDelay: "300ms" }}
         >
           {settings?.hero_bio_short || "I build fast, scalable, and beautiful web applications that people love to use."}
@@ -121,24 +114,34 @@ export default function HeroSection() {
 
         {/* CTAs */}
         <div
-          className={`flex flex-wrap items-center justify-center gap-4 mb-12 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`flex flex-wrap items-center justify-center gap-3.5 mb-8 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           style={{ transitionDelay: "400ms" }}
         >
-          <Link href="/#projects" className="btn-primary shadow-glow-sm group">
-            View My Work
-            <ChevronRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+          <Link
+            href="/#projects"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-semibold text-sm tracking-wide shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap group"
+          >
+            <span>View My Work</span>
+            <ChevronRight size={15} className="shrink-0 group-hover:translate-x-0.5 transition-transform" />
           </Link>
           {settings?.owner_resume_url ? (
-            <a href={settings.owner_resume_url} target="_blank" rel="noopener noreferrer"
-              className="btn-outline"
-              onClick={() => publicApi.trackEvent("resume_download", "/resume")}>
-              <Download size={16} />
-              Download Resume
+            <a
+              href={settings.owner_resume_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-300 dark:border-white/10 hover:border-emerald-500/50 text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 font-semibold text-sm shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap group"
+              onClick={() => publicApi.trackEvent("resume_download", "/resume")}
+            >
+              <Download size={15} className="shrink-0 text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition-transform" />
+              <span>Download Resume</span>
             </a>
           ) : (
-            <Link href="/#contact" className="btn-outline">
-              <Mail size={16} />
-              Get In Touch
+            <Link
+              href="/#contact"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-300 dark:border-white/10 hover:border-emerald-500/50 text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 font-semibold text-sm shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap group"
+            >
+              <Mail size={15} className="shrink-0 text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition-transform" />
+              <span>Get In Touch</span>
             </Link>
           )}
         </div>
@@ -146,7 +149,7 @@ export default function HeroSection() {
         {/* Social links */}
         {socials.length > 0 && (
           <div
-            className={`flex items-center justify-center gap-3 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+            className={`flex items-center justify-center gap-2.5 mb-8 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
             style={{ transitionDelay: "500ms" }}
           >
             {socials.map((s) => (
@@ -155,7 +158,7 @@ export default function HeroSection() {
                 href={s.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg glass glass-hover flex items-center justify-center text-slate-400 hover:text-brand-400"
+                className="w-10 h-10 rounded-xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 hover:border-emerald-500/50 flex items-center justify-center text-slate-700 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow"
                 aria-label={s.label || s.platform}
                 onClick={() => publicApi.trackEvent("social_click", s.url)}
               >
@@ -164,12 +167,15 @@ export default function HeroSection() {
             ))}
           </div>
         )}
-      </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 animate-bounce">
-        <span className="text-xs font-mono">scroll</span>
-        <ArrowDown size={16} />
+        {/* Scroll indicator */}
+        <Link
+          href="/#about"
+          className="inline-flex flex-col items-center gap-1 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer group"
+        >
+          <span className="text-[10px] font-mono tracking-widest uppercase">Scroll</span>
+          <ArrowDown size={14} className="animate-bounce" />
+        </Link>
       </div>
     </section>
   );

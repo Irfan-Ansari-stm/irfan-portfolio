@@ -48,10 +48,10 @@ export default function BlogPostPage() {
     <div className="min-h-screen">
       <Navbar />
       <main className="pt-28 pb-24 max-w-3xl mx-auto px-6">
-        <div className="h-8 w-32 bg-white/[0.03] rounded animate-pulse mb-8" />
-        <div className="h-12 w-3/4 bg-white/[0.03] rounded animate-pulse mb-4" />
+        <div className="h-8 w-32 bg-slate-200 dark:bg-white/[0.03] rounded animate-pulse mb-8" />
+        <div className="h-12 w-3/4 bg-slate-200 dark:bg-white/[0.03] rounded animate-pulse mb-4" />
         <div className="space-y-3 mt-10">
-          {[1,2,3,4,5].map((i) => <div key={i} className="h-4 bg-white/[0.02] rounded animate-pulse" style={{ width: `${80 + Math.random() * 20}%` }} />)}
+          {[1,2,3,4,5].map((i) => <div key={i} className="h-4 bg-slate-100 dark:bg-white/[0.02] rounded animate-pulse" style={{ width: `${80 + Math.random() * 20}%` }} />)}
         </div>
       </main>
     </div>
@@ -65,7 +65,7 @@ export default function BlogPostPage() {
       <main className="pt-28 pb-24">
         <div className="max-w-3xl mx-auto px-6">
           {/* Back */}
-          <Link href="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-400 text-sm mb-8 transition-colors">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-500 dark:hover:text-brand-400 text-sm mb-8 transition-colors">
             <ArrowLeft size={14} /> All Articles
           </Link>
 
@@ -77,40 +77,40 @@ export default function BlogPostPage() {
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-5 leading-tight">{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-5 leading-tight">{post.title}</h1>
 
           {/* Meta */}
-          <div className="flex flex-wrap items-center gap-4 text-slate-500 text-sm mb-8 pb-8 border-b border-white/[0.07]">
+          <div className="flex flex-wrap items-center gap-4 text-slate-500 dark:text-slate-400 text-sm mb-8 pb-8 border-b border-slate-200 dark:border-white/[0.07]">
             {post.published_at && <span className="flex items-center gap-1.5"><Calendar size={13} />{formatDate(post.published_at)}</span>}
             <span className="flex items-center gap-1.5"><Clock size={13} />{post.reading_time_mins} min read</span>
             {/* Share */}
             <div className="flex items-center gap-2 ml-auto">
-              <span className="flex items-center gap-1 text-slate-600 text-xs"><Share2 size={12} />Share:</span>
-              <button onClick={() => share("twitter")} className="w-7 h-7 rounded glass flex items-center justify-center text-slate-400 hover:text-sky-400 transition-colors" aria-label="Share on Twitter"><MessageCircle size={13} /></button>
-              <button onClick={() => share("linkedin")} className="w-7 h-7 rounded glass flex items-center justify-center text-slate-400 hover:text-blue-400 transition-colors" aria-label="Share on LinkedIn"><Users size={13} /></button>
-              <button onClick={() => share("copy")} className="w-7 h-7 rounded glass flex items-center justify-center text-slate-400 hover:text-brand-400 transition-colors" aria-label="Copy link"><Link2 size={13} /></button>
+              <span className="flex items-center gap-1 text-slate-500 text-xs"><Share2 size={12} />Share:</span>
+              <button onClick={() => share("twitter")} className="w-7 h-7 rounded glass flex items-center justify-center text-slate-500 hover:text-sky-500 transition-colors" aria-label="Share on Twitter"><MessageCircle size={13} /></button>
+              <button onClick={() => share("linkedin")} className="w-7 h-7 rounded glass flex items-center justify-center text-slate-500 hover:text-blue-500 transition-colors" aria-label="Share on LinkedIn"><Users size={13} /></button>
+              <button onClick={() => share("copy")} className="w-7 h-7 rounded glass flex items-center justify-center text-slate-500 hover:text-emerald-500 transition-colors" aria-label="Copy link"><Link2 size={13} /></button>
             </div>
           </div>
 
           {/* Cover image */}
           {post.cover_image_url && (
-            <div className="mb-10 rounded-xl overflow-hidden border border-white/[0.07]">
+            <div className="mb-10 rounded-xl overflow-hidden border border-slate-200 dark:border-white/[0.07]">
               <img src={post.cover_image_url} alt={post.title} className="w-full max-h-80 object-cover" />
             </div>
           )}
 
           {/* Content */}
-          <article className="prose prose-invert prose-sm md:prose-base max-w-none">
+          <article className="prose dark:prose-invert prose-sm md:prose-base max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {post.content || post.excerpt}
             </ReactMarkdown>
           </article>
 
           {/* Bottom share */}
-          <div className="mt-16 pt-8 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-16 pt-8 border-t border-slate-200 dark:border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <p className="text-white font-semibold mb-1">Found this helpful?</p>
-              <p className="text-slate-400 text-sm">Share it with others who might benefit.</p>
+              <p className="text-slate-900 dark:text-white font-semibold mb-1">Found this helpful?</p>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">Share it with others who might benefit.</p>
             </div>
             <div className="flex gap-2">
               <button onClick={() => share("twitter")} className="btn-outline text-xs px-4 py-2"><MessageCircle size={13} />Twitter</button>

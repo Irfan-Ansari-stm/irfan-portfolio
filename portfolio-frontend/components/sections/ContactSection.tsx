@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useInView } from "react-intersection-observer";
-import { Send, MapPin, Mail, GitBranch, Users, MessageCircle, Globe, CheckCircle } from "lucide-react";
+import { Send, MapPin, Mail, GitBranch, Users, MessageCircle, Globe, CheckCircle, ArrowRight } from "lucide-react";
 import toast from "react-hot-toast";
 import { publicApi } from "@/lib/api";
 import type { SiteSettings, SocialLink } from "@/types";
@@ -131,7 +132,10 @@ export default function ContactSection() {
                 <span className="w-2 h-2 rounded-full bg-brand-400 animate-pulse" />
                 <span className="text-brand-400 text-sm font-medium">Available for work</span>
               </div>
-              <p className="text-slate-400 text-sm">Currently open to freelance projects and full-time opportunities.</p>
+              <p className="text-slate-400 text-sm mb-4">Currently open to freelance projects and full-time opportunities.</p>
+              <Link href="/contact" className="btn-outline text-xs px-4 py-2 w-full inline-flex items-center justify-center gap-1.5 group">
+                Full Contact Page & FAQs <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+              </Link>
             </div>
           </div>
 

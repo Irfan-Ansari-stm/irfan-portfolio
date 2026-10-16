@@ -1,16 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { MapPin, Mail, Calendar, Code2, Briefcase, GraduationCap } from "lucide-react";
+import Link from "next/link";
+import { MapPin, Mail, Calendar, Code2, Briefcase, GraduationCap, ArrowRight } from "lucide-react";
 import { publicApi } from "@/lib/api";
 import type { SiteSettings, Experience } from "@/types";
 import { formatDate } from "@/lib/utils";
 
 function StatCard({ value, label }: { value: string | number; label: string }) {
   return (
-    <div className="card p-5 text-center card-hover">
-      <div className="text-3xl font-bold gradient-text mb-1">{value}+</div>
-      <div className="text-slate-400 text-xs font-medium uppercase tracking-wide">{label}</div>
+    <div className="card p-5 text-center card-hover bg-white dark:bg-[var(--bg-card)] border border-slate-200 dark:border-white/10 shadow-sm">
+      <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400 mb-1">{value}+</div>
+      <div className="text-slate-700 dark:text-slate-300 text-xs font-semibold uppercase tracking-wider">{label}</div>
     </div>
   );
 }
@@ -41,10 +42,11 @@ export default function AboutSection() {
     <section id="about" className="py-24 relative" ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
-        <div className={`mb-14 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <p className="text-brand-400 font-mono text-sm mb-2">// about me</p>
+        <div className={`mb-12 transition-all duration-700 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <p className="text-emerald-600 dark:text-emerald-400 font-mono text-sm mb-2 font-medium">// about me</p>
           <h2 className="section-title">Who I Am</h2>
-          <div className="w-12 h-1 bg-brand-500 rounded-full" />
+          <div className="w-12 h-1 bg-emerald-500 rounded-full mb-4" />
+          <p className="section-subtitle">My journey, experience, and background as a developer.</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-14 items-start">
@@ -52,16 +54,16 @@ export default function AboutSection() {
           <div className={`transition-all duration-700 delay-100 ${inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
             {settings?.owner_avatar_url && (
               <div className="relative mb-8 inline-block">
-                <div className="w-36 h-36 rounded-2xl overflow-hidden border-2 border-brand-500/30 shadow-glow-sm">
+                <div className="w-36 h-36 rounded-2xl overflow-hidden border-2 border-emerald-500/30 shadow-md">
                   <img src={settings.owner_avatar_url} alt={settings.owner_name} className="w-full h-full object-cover" />
                 </div>
-                <span className="absolute -bottom-2 -right-2 w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center text-dark-900 text-lg animate-glow-pulse">
+                <span className="absolute -bottom-2 -right-2 w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-neutral-950 text-lg shadow-md">
                   👨‍💻
                 </span>
               </div>
             )}
 
-            <div className="prose prose-sm max-w-none text-slate-400 mb-6 leading-relaxed">
+            <div className="prose prose-sm max-w-none text-slate-700 dark:text-slate-300 mb-6 leading-relaxed">
               {settings?.about_bio
                 ? settings.about_bio.split("\n").map((p, i) => p && <p key={i}>{p}</p>)
                 : <p>Passionate Full Stack Developer building modern web applications with React and Node.js.</p>
@@ -71,15 +73,15 @@ export default function AboutSection() {
             {/* Meta info */}
             <div className="flex flex-col gap-2 mb-8">
               {settings?.owner_location && (
-                <div className="flex items-center gap-2.5 text-slate-400 text-sm">
-                  <MapPin size={14} className="text-brand-400 flex-shrink-0" />
-                  {settings.owner_location}
+                <div className="flex items-center gap-2.5 text-slate-700 dark:text-slate-300 text-sm">
+                  <MapPin size={14} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+                  <span>{settings.owner_location}</span>
                 </div>
               )}
               {settings?.owner_email && (
-                <div className="flex items-center gap-2.5 text-slate-400 text-sm">
-                  <Mail size={14} className="text-brand-400 flex-shrink-0" />
-                  <a href={`mailto:${settings.owner_email}`} className="hover:text-brand-400 transition-colors">
+                <div className="flex items-center gap-2.5 text-slate-700 dark:text-slate-300 text-sm">
+                  <Mail size={14} className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+                  <a href={`mailto:${settings.owner_email}`} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors font-medium">
                     {settings.owner_email}
                   </a>
                 </div>
@@ -87,56 +89,72 @@ export default function AboutSection() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 mb-6">
               <StatCard value={settings?.about_years_exp ?? 1} label="Years Experience" />
               <StatCard value={settings?.about_projects_count ?? 0} label="Projects Built" />
             </div>
+
+            <Link
+              href="/about"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-300 dark:border-white/10 hover:border-emerald-500/50 text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 font-semibold text-xs shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap group"
+            >
+              <span>More About Me</span>
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
 
           {/* Right — Timeline */}
-          <div className={`transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
-            <h3 className="text-white font-semibold text-lg mb-6 flex items-center gap-2">
-              <span className="w-1 h-5 bg-brand-500 rounded-full" />
+          <div id="experience" className={`scroll-mt-28 transition-all duration-700 delay-200 ${inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+            <h3 className="text-slate-900 dark:text-white font-semibold text-lg mb-6 flex items-center gap-2">
+              <span className="w-1.5 h-5 bg-emerald-500 rounded-full" />
               Experience & Education
             </h3>
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-brand-500/60 via-brand-500/20 to-transparent" />
+              <div className="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-emerald-500/60 via-emerald-500/20 to-transparent" />
 
-              <div className="space-y-5">
+              <div className="space-y-5 mb-6">
                 {experiences.length === 0
                   ? [1, 2, 3].map((i) => (
-                    <div key={i} className="h-24 rounded-xl bg-white/[0.02] animate-pulse ml-12" />
+                    <div key={i} className="h-24 rounded-xl bg-slate-100 dark:bg-white/[0.02] animate-pulse ml-12" />
                   ))
                   : experiences.slice(0, 5).map((exp, idx) => (
                     <div key={exp.id} className={`relative flex gap-4 transition-all duration-500`} style={{ transitionDelay: `${idx * 80}ms` }}>
                       {/* Dot */}
-                      <div className="relative z-10 flex-shrink-0 w-10 h-10 rounded-xl bg-dark-700 border border-white/10 flex items-center justify-center text-brand-400">
+                      <div className="relative z-10 flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-sm">
                         {EXP_ICON[exp.type]}
                       </div>
                       {/* Content */}
-                      <div className="card p-4 flex-1 card-hover">
+                      <div className="card p-4 flex-1 card-hover border border-slate-200 dark:border-white/10 shadow-sm">
                         <div className="flex items-start justify-between gap-2 mb-1">
-                          <h4 className="text-white font-semibold text-sm">{exp.title}</h4>
+                          <h4 className="text-slate-900 dark:text-white font-semibold text-sm">{exp.title}</h4>
                           {exp.is_current && (
-                            <span className="flex-shrink-0 text-xs px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">
+                            <span className="flex-shrink-0 text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-semibold">
                               Current
                             </span>
                           )}
                         </div>
-                        <p className="text-brand-400/80 text-xs font-medium mb-1">{exp.organization}</p>
-                        {exp.location && <p className="text-slate-500 text-xs">{exp.location}</p>}
-                        <p className="text-slate-600 text-xs mt-1.5 font-mono">
+                        <p className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-1">{exp.organization}</p>
+                        {exp.location && <p className="text-slate-600 dark:text-slate-400 text-xs">{exp.location}</p>}
+                        <p className="text-slate-600 dark:text-slate-400 text-xs mt-1.5 font-mono">
                           {formatDate(exp.start_date)} — {exp.is_current ? "Present" : exp.end_date ? formatDate(exp.end_date) : ""}
                         </p>
                         {exp.description && (
-                          <p className="text-slate-400 text-xs mt-2 leading-relaxed line-clamp-2">{exp.description}</p>
+                          <p className="text-slate-600 dark:text-slate-400 text-xs mt-2 leading-relaxed line-clamp-2">{exp.description}</p>
                         )}
                       </div>
                     </div>
                   ))
                 }
               </div>
+
+              <Link
+                href="/experience"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-black/[0.04] hover:bg-black/[0.08] dark:bg-white/[0.04] dark:hover:bg-white/[0.08] border border-black/10 dark:border-white/10 hover:border-emerald-500/40 text-slate-800 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white font-medium text-xs backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap group"
+              >
+                <span>Full Experience & Timeline</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
         </div>

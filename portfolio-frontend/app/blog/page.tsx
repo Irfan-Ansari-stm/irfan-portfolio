@@ -50,13 +50,13 @@ export default function BlogPage() {
         <div className="max-w-6xl mx-auto px-6">
           {/* Header */}
           <div className="mb-12">
-            <Link href="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-400 text-sm mb-6 transition-colors">
+            <Link href="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-500 dark:hover:text-brand-400 text-sm mb-6 transition-colors">
               <ArrowLeft size={14} /> Back to Home
             </Link>
-            <p className="text-brand-400 font-mono text-sm mb-2">// articles & thoughts</p>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">Blog</h1>
+            <p className="text-emerald-500 dark:text-brand-400 font-mono text-sm mb-2">// articles & thoughts</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-3">Blog</h1>
             <div className="w-12 h-1 bg-brand-500 rounded-full mb-4" />
-            <p className="text-slate-400 max-w-xl">Writings on web development, software architecture, and the tools I use.</p>
+            <p className="text-slate-600 dark:text-slate-400 max-w-xl">Writings on web development, software architecture, and the tools I use.</p>
           </div>
 
           {/* Search + Filter */}
@@ -73,8 +73,10 @@ export default function BlogPage() {
             <div className="flex flex-wrap gap-2">
               {["all", ...tags.map((t) => t.name)].map((tag) => (
                 <button key={tag} onClick={() => { setActiveTag(tag); setPage(1); }}
-                  className={cn("px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                    activeTag === tag ? "bg-brand-500 text-dark-900" : "glass text-slate-400 hover:text-white")}>
+                  className={cn("px-3 py-1.5 rounded-lg text-xs font-medium transition-all shadow-sm",
+                    activeTag === tag
+                      ? "bg-emerald-500 text-neutral-950 font-semibold shadow-sm"
+                      : "bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-emerald-500/40")}>
                   {tag === "all" ? "All" : tags.find((t) => t.name === tag)?.label || tag}
                 </button>
               ))}
@@ -84,12 +86,12 @@ export default function BlogPage() {
           {/* Posts grid */}
           {loading && posts.length === 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1,2,3,4,5,6].map((i) => <div key={i} className="h-72 rounded-xl bg-white/[0.02] animate-pulse" />)}
+              {[1,2,3,4,5,6].map((i) => <div key={i} className="h-72 rounded-xl bg-slate-100 dark:bg-white/[0.02] animate-pulse" />)}
             </div>
           ) : posts.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-slate-500 text-lg mb-3">No articles found.</p>
-              <p className="text-slate-600 text-sm">Try a different search term or tag.</p>
+            <div className="text-center py-20 card">
+              <p className="text-slate-600 dark:text-slate-400 text-lg mb-2">No articles found.</p>
+              <p className="text-slate-500 text-sm">Try a different search term or category tag.</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -98,7 +100,7 @@ export default function BlogPage() {
                   className="card card-hover group block overflow-hidden"
                   onClick={() => publicApi.trackEvent("blog_view", `/blog/${post.slug}`, post.id)}>
                   {post.cover_image_url && (
-                    <div className="h-44 overflow-hidden">
+                    <div className="h-44 overflow-hidden bg-slate-100 dark:bg-dark-700">
                       <img src={post.cover_image_url} alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
@@ -112,11 +114,11 @@ export default function BlogPage() {
                         </span>
                       ))}
                     </div>
-                    <h2 className="text-white font-bold text-base mb-2 group-hover:text-brand-400 transition-colors leading-snug">
+                    <h2 className="text-slate-900 dark:text-white font-bold text-base mb-2 group-hover:text-emerald-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
                       {post.title}
                     </h2>
-                    <p className="text-slate-400 text-sm mb-4 leading-relaxed">{truncate(post.excerpt, 110)}</p>
-                    <div className="flex items-center gap-3 text-slate-500 text-xs">
+                    <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 leading-relaxed">{truncate(post.excerpt, 110)}</p>
+                    <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 text-xs">
                       {post.published_at && <span className="flex items-center gap-1"><Calendar size={11} />{formatDate(post.published_at)}</span>}
                       <span className="flex items-center gap-1"><Clock size={11} />{post.reading_time_mins} min</span>
                     </div>

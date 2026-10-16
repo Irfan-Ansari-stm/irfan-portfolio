@@ -4,6 +4,7 @@ import { GitBranch, Users, MessageCircle, Globe, Mail, Terminal, Heart } from "l
 import { useEffect, useState } from "react";
 import { publicApi } from "@/lib/api";
 import type { SocialLink, SiteSettings } from "@/types";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 
 const PLATFORM_ICON: Record<string, React.ReactNode> = {
   github: <GitBranch size={16} />,
@@ -25,31 +26,31 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="border-t border-white/[0.06] bg-dark-800/50 mt-24">
+    <footer className="border-t border-black/[0.06] dark:border-white/[0.06] bg-slate-100/70 dark:bg-dark-800/50 mt-24 transition-colors">
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid md:grid-cols-3 gap-8 mb-10">
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-3">
-              <span className="w-7 h-7 rounded-lg bg-brand-500/20 border border-brand-500/40 flex items-center justify-center">
-                <Terminal size={13} className="text-brand-400" />
+              <span className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
+                <Terminal size={13} className="text-emerald-500 dark:text-emerald-400" />
               </span>
-              <span className="font-bold text-white font-mono text-sm">
-                irfan<span className="text-brand-400">.dev</span>
+              <span className="font-bold text-slate-900 dark:text-white font-mono text-sm">
+                irfan<span className="text-emerald-500 dark:text-emerald-400">.dev</span>
               </span>
             </Link>
-            <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
+            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-xs">
               {settings?.hero_bio_short || "Full Stack Developer building scalable web applications."}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h4 className="text-white font-semibold text-sm mb-3">Quick Links</h4>
+            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-3">Quick Links</h4>
             <ul className="space-y-2">
-              {[["/#about","About"],["/#projects","Projects"],["/#skills","Skills"],["/#contact","Contact"],["/blog","Blog"]].map(([href,label]) => (
+              {[["/#about","About"],["/#projects","Projects"],["/#skills","Skills"],["/#experience","Experience"],["/#blog","Blog"],["/#contact","Contact"]].map(([href,label]) => (
                 <li key={href}>
-                  <Link href={href} className="text-slate-500 hover:text-brand-400 text-sm transition-colors">
+                  <Link href={href} className="text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 text-sm transition-colors">
                     {label}
                   </Link>
                 </li>
@@ -59,7 +60,7 @@ export default function Footer() {
 
           {/* Social + Contact */}
           <div>
-            <h4 className="text-white font-semibold text-sm mb-3">Connect</h4>
+            <h4 className="text-slate-900 dark:text-white font-semibold text-sm mb-3">Connect</h4>
             <div className="flex flex-wrap gap-2 mb-4">
               {socials.map((s) => (
                 <a
@@ -67,7 +68,7 @@ export default function Footer() {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg glass flex items-center justify-center text-slate-400 hover:text-brand-400 hover:border-brand-500/40 transition-all"
+                  className="w-9 h-9 rounded-lg glass flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500/40 transition-all"
                   aria-label={s.label || s.platform}
                 >
                   {PLATFORM_ICON[s.platform]}
@@ -76,7 +77,7 @@ export default function Footer() {
               {settings?.owner_email && (
                 <a
                   href={`mailto:${settings.owner_email}`}
-                  className="w-9 h-9 rounded-lg glass flex items-center justify-center text-slate-400 hover:text-brand-400 hover:border-brand-500/40 transition-all"
+                  className="w-9 h-9 rounded-lg glass flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500/40 transition-all"
                   aria-label="Email"
                 >
                   <Mail size={16} />
@@ -89,13 +90,16 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-slate-600 text-xs">
+        <div className="border-t border-black/[0.06] dark:border-white/[0.06] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-slate-500 dark:text-slate-400 text-xs" suppressHydrationWarning>
             © {new Date().getFullYear()} {settings?.owner_name || "Irfan Ansari"}. All rights reserved.
           </p>
-          <p className="text-slate-600 text-xs flex items-center gap-1">
-            Built with <Heart size={11} className="text-brand-500" /> using Next.js & TypeScript
-          </p>
+          <div className="flex items-center gap-4">
+            <ThemeToggle showLabel className="text-xs py-1.5 px-3" />
+            <p className="text-slate-500 dark:text-slate-400 text-xs flex items-center gap-1">
+              Built with <Heart size={11} className="text-emerald-500 fill-emerald-500" /> using Next.js & TypeScript
+            </p>
+          </div>
         </div>
       </div>
     </footer>
