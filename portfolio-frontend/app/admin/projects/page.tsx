@@ -68,20 +68,20 @@ function ProjectForm({ initial, tags, onSave, onClose }: {
           </div>
           <div>
             <label className="label">Short Description *</label>
-            <textarea className="input resize-none" rows={2} value={form.short_desc} onChange={(e) => set("short_desc", e.target.value)} placeholder="Brief description (max 300 chars)" maxLength={300} required />
+            <textarea className="input resize-none" rows={2} value={form.short_desc || ""} onChange={(e) => set("short_desc", e.target.value)} placeholder="Brief description (max 300 chars)" maxLength={300} required />
           </div>
           <div>
             <label className="label">Long Description</label>
-            <textarea className="input resize-none" rows={4} value={form.long_desc} onChange={(e) => set("long_desc", e.target.value)} placeholder="Detailed description..." />
+            <textarea className="input resize-none" rows={4} value={form.long_desc || ""} onChange={(e) => set("long_desc", e.target.value)} placeholder="Detailed description..." />
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="label">GitHub URL</label>
-              <input className="input" value={form.github_url} onChange={(e) => set("github_url", e.target.value)} placeholder="https://github.com/..." type="url" />
+              <input className="input" value={form.github_url || ""} onChange={(e) => set("github_url", e.target.value)} placeholder="https://github.com/..." type="url" />
             </div>
             <div>
               <label className="label">Demo URL</label>
-              <input className="input" value={form.demo_url} onChange={(e) => set("demo_url", e.target.value)} placeholder="https://demo.example.com" type="url" />
+              <input className="input" value={form.demo_url || ""} onChange={(e) => set("demo_url", e.target.value)} placeholder="https://demo.example.com" type="url" />
             </div>
           </div>
           <div>

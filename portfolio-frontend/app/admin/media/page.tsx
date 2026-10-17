@@ -8,7 +8,7 @@ import {
 import toast from "react-hot-toast";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { adminApi } from "@/lib/api";
-import { cn, formatBytes, formatDate } from "@/lib/utils";
+import { cn, formatBytes, formatDate, resolveMediaUrl } from "@/lib/utils";
 import type { MediaItem } from "@/types";
 
 export default function AdminMediaPage() {
@@ -337,7 +337,7 @@ export default function AdminMediaPage() {
                   >
                     {item.file_type === "image" ? (
                       <img
-                        src={item.url}
+                        src={resolveMediaUrl(item.url)}
                         alt={item.original_name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
@@ -345,7 +345,7 @@ export default function AdminMediaPage() {
                     ) : item.file_type === "video" ? (
                       <div className="w-full h-full relative flex items-center justify-center bg-neutral-950 text-white">
                         <video
-                          src={item.url}
+                          src={resolveMediaUrl(item.url)}
                           className="w-full h-full object-cover opacity-80"
                           muted
                           preload="metadata"
@@ -469,7 +469,7 @@ export default function AdminMediaPage() {
                               className="w-12 h-9 rounded-lg overflow-hidden bg-slate-100 dark:bg-neutral-950 border border-slate-200 dark:border-white/10 flex-shrink-0 cursor-pointer flex items-center justify-center"
                             >
                               {item.file_type === "image" ? (
-                                <img src={item.url} alt="" className="w-full h-full object-cover" />
+                                <img src={resolveMediaUrl(item.url)} alt="" className="w-full h-full object-cover" />
                               ) : item.file_type === "video" ? (
                                 <VideoIcon size={16} className="text-emerald-500" />
                               ) : (
@@ -564,13 +564,13 @@ export default function AdminMediaPage() {
                 <div className="w-full max-h-[420px] rounded-xl overflow-hidden bg-slate-100 dark:bg-neutral-950 border border-slate-200 dark:border-white/10 flex items-center justify-center">
                   {previewItem.file_type === "image" ? (
                     <img
-                      src={previewItem.url}
+                      src={resolveMediaUrl(previewItem.url)}
                       alt={previewItem.original_name}
                       className="max-h-[420px] w-auto max-w-full object-contain"
                     />
                   ) : previewItem.file_type === "video" ? (
                     <video
-                      src={previewItem.url}
+                      src={resolveMediaUrl(previewItem.url)}
                       controls
                       autoPlay
                       className="max-h-[420px] w-full object-contain"

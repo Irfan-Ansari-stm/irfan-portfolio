@@ -59,7 +59,7 @@ export default function ContactSection() {
       {rows ? (
         <textarea
           rows={rows}
-          value={form[key]}
+          value={form[key] || ""}
           onChange={(e) => { setForm((f) => ({ ...f, [key]: e.target.value })); setErrors((er) => ({ ...er, [key]: "" })); }}
           className={`input resize-none ${errors[key] ? "border-red-500/60" : ""}`}
           placeholder={label}
@@ -67,7 +67,7 @@ export default function ContactSection() {
       ) : (
         <input
           type={type}
-          value={form[key]}
+          value={form[key] || ""}
           onChange={(e) => { setForm((f) => ({ ...f, [key]: e.target.value })); setErrors((er) => ({ ...er, [key]: "" })); }}
           className={`input ${errors[key] ? "border-red-500/60" : ""}`}
           placeholder={label}

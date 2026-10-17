@@ -63,3 +63,21 @@ export const PLATFORM_ICONS: Record<string, string> = {
   website: "globe",
   other: "link",
 };
+
+export function resolveMediaUrl(url: string | null | undefined): string {
+  if (!url) return "";
+  if (url.startsWith("data:") || url.startsWith("blob:")) return url;
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    try {
+      const parsed = new URL(url);
+      if (typeof window !== "undefined" && (parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1")) {
+        const apiBase = process.env.NEXT_PUBLIC_API_URL || `${window.location.protocol}//${window.location.hostname}:5000`;
+        return `${apiBase}${parsed.pathname}`;
+      }
+    } catch (_) {}
+    return url;
+  }
+  const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  return `${apiBase}${url.startsWith("/") ? "" : "/"}${url}`;
+}
+

@@ -52,16 +52,16 @@ function PostForm({ initial, tags, onSave, onClose }: {
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="label">Title *</label>
-              <input className="input" value={form.title} onChange={(e) => set("title", e.target.value)} placeholder="Post title" required />
+              <input className="input" value={form.title || ""} onChange={(e) => set("title", e.target.value)} placeholder="Post title" required />
             </div>
             <div>
               <label className="label">Slug (auto-generated)</label>
-              <input className="input" value={form.slug} onChange={(e) => set("slug", e.target.value)} placeholder="post-slug" />
+              <input className="input" value={form.slug || ""} onChange={(e) => set("slug", e.target.value)} placeholder="post-slug" />
             </div>
           </div>
           <div>
             <label className="label">Excerpt *</label>
-            <textarea className="input resize-none" rows={2} value={form.excerpt} onChange={(e) => set("excerpt", e.target.value)} placeholder="Short summary (max 500 chars)" maxLength={500} required />
+            <textarea className="input resize-none" rows={2} value={form.excerpt || ""} onChange={(e) => set("excerpt", e.target.value)} placeholder="Short summary (max 500 chars)" maxLength={500} required />
           </div>
           <div>
             <div className="flex items-center justify-between mb-1.5">
@@ -78,7 +78,7 @@ function PostForm({ initial, tags, onSave, onClose }: {
             <div className="flex items-center gap-2">
               <input
                 className="input flex-1"
-                value={form.cover_image_url}
+                value={form.cover_image_url || ""}
                 onChange={(e) => set("cover_image_url", e.target.value)}
                 placeholder="https://..."
                 type="url"
@@ -119,7 +119,7 @@ function PostForm({ initial, tags, onSave, onClose }: {
             <textarea
               className="input resize-none font-mono text-sm leading-relaxed"
               rows={12}
-              value={form.content}
+              value={form.content || ""}
               onChange={(e) => set("content", e.target.value)}
               placeholder="# My Post&#10;&#10;Write your content in Markdown..."
             />

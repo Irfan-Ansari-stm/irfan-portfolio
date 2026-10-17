@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { adminApi } from "@/lib/api";
-import { cn, formatBytes, formatDate } from "@/lib/utils";
+import { cn, formatBytes, formatDate, resolveMediaUrl } from "@/lib/utils";
 import type { MediaItem } from "@/types";
 
 interface MediaPickerModalProps {
@@ -239,7 +239,7 @@ export default function MediaPickerModal({
                     <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-100 dark:bg-neutral-950 flex items-center justify-center mb-2">
                       {item.file_type === "image" ? (
                         <img
-                          src={item.url}
+                          src={resolveMediaUrl(item.url)}
                           alt={item.original_name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />

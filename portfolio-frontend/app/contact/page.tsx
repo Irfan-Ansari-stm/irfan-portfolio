@@ -237,7 +237,7 @@ export default function ContactPage() {
                       <label className="label">Your Message *</label>
                       <textarea
                         rows={6}
-                        value={form.message}
+                        value={form.message || ""}
                         onChange={(e) => {
                           setForm((f) => ({ ...f, message: e.target.value }));
                           setErrors((er) => ({ ...er, message: "" }));
